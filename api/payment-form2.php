@@ -61,7 +61,7 @@ function payout(){
             'api_key' => '07c784da-1ab7825e-d5742394-07a47b63',
             'secret_key' => 'ef2bc47d-31ecf9a6-97bb9144-228b38dc',
             'version' => 'v1',
-            'api_url' => 'https://prod.vizpay.io/'
+            'api_url' => 'https://apipoint.first2pay.io/'
         ];
         $vizpay = new Vizpay($config);
 
