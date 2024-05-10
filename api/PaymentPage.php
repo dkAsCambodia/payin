@@ -120,7 +120,7 @@
       <!-- <div style="text-align:center; height: 241px"><img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=bitcoin%3A1DonateWffyhwAjskoEwXt83pHZxhLTr8H%3Famount%3D0.04656914&choe=UTF-8" style="display: inline;height:auto;width:300px;margin-top: -5%;" alt="QR code for payment"> </div> -->
       <div style="text-align:center; height:186px"><img src="https://payin.implogix.com/api/vizpay/processing.gif" style="display: inline;height:200px;width:230px;margin-top: -5%;" alt="official QR code for payment"> </div>
     </div>
-    <h4 style="text-align:center;color:#dc3545 !important;">You will be redirected to merchant Websites in <span id="timer" style="color:#dc3545 !important;">00:59 seconds</span>.</h4>
+    <h4 style="text-align:center;color:#dc3545 !important;">You will be redirected to merchant Websites in <span id="timer" style="color:#dc3545 !important;">00:30 seconds</span>.</h4>
       <div class="abf-list">
         <div class="abf-list-item">
           <div class="abf-label">Amount:</div>
@@ -156,7 +156,7 @@
     </div>
     <h3 style="color:#495057;">Reminder:</h3>
     <div class="abf-address abf-topline abf-ash2 abf-input-address" style="color:#dc3545 !important;">> Please do not refresh the page untill payment completed.</div>
-    <div class="abf-address abf-topline abf-ash2 abf-input-address" style="color:#dc3545 !important;">> Payment must be completed within 3 minute of transaction.</div>
+    <div class="abf-address abf-topline abf-ash2 abf-input-address" style="color:#dc3545 !important;">> Payment must be completed within 1 minute of transaction.</div>
     <div class="abf-address abf-topline abf-ash2 abf-input-address" style="color:#dc3545 !important;">> If refresh the page then you need wait again with start timer.</div>
     <div class="abf-address abf-topline abf-ash2 abf-input-address" style="color:#dc3545 !important;">> Make sure above Bank Details are correct otherwise transaction will be Failed.</div>
   </div>
@@ -170,7 +170,7 @@
             var currentTime = new Date();
             var elapsedTime = Math.floor((currentTime - startTime) / 1000); // in seconds
             // Calculate remaining time
-            var remainingTime = Math.max(0, (0 * 60 + 59) - elapsedTime); // 2 minutes and 59 seconds
+            var remainingTime = Math.max(0, (0 * 30 + 30) - elapsedTime); // 2 minutes and 59 seconds
             var minutes = Math.floor(remainingTime / 60);
             var seconds = remainingTime % 60;
             // Add leading zeros if needed

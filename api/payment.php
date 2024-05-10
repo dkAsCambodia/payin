@@ -161,7 +161,7 @@
     </div>
     <h3 style="color:#495057;">Reminder:</h3>
     <div class="abf-address abf-topline abf-ash2 abf-input-address" style="color:#dc3545 !important;">> Please do not refresh the page untill payment completed.</div>
-    <div class="abf-address abf-topline abf-ash2 abf-input-address" style="color:#dc3545 !important;">> Payment must be completed within 3 minutes of transaction.</div>
+    <div class="abf-address abf-topline abf-ash2 abf-input-address" style="color:#dc3545 !important;">> Payment must be completed within 1 minutes of transaction.</div>
     <div class="abf-address abf-topline abf-ash2 abf-input-address" style="color:#dc3545 !important;">> If refresh the page then you need wait again with start timer.</div>
     <div class="abf-address abf-topline abf-ash2 abf-input-address" style="color:#dc3545 !important;">> Make sure above Bank Details are correct otherwise transaction will be Failed.</div>
   </div>
@@ -185,7 +185,7 @@ $callbackURL=$redirecturl.'?token='.$_GET['token'].'&amount='.$_GET['amount'].'&
             // Display the current time with seconds
             document.getElementById("timer").innerHTML = minutes + ":" + seconds + " seconds";
             // Check if 4 minutes and 30 seconds have passed, then redirect
-            if (minutes >= 3) {
+            if (minutes >= 1) {
                 window.location.href = "<?php echo $callbackURL; ?>";
             }
         }
