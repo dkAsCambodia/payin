@@ -162,25 +162,31 @@
   </div>
 </div>
 <!-- partial -->
-
-    <script>
+<script>
         var startTime = new Date();
+
         // Function to update the timer every second
         function updateTimer() {
             var currentTime = new Date();
             var elapsedTime = Math.floor((currentTime - startTime) / 1000); // in seconds
+
             // Calculate remaining time
-            var remainingTime = Math.max(0, (0 * 30 + 30) - elapsedTime); // 2 minutes and 59 seconds
+            var remainingTime = Math.max(0, 30 - elapsedTime); // 30 seconds countdown
+
             var minutes = Math.floor(remainingTime / 60);
             var seconds = remainingTime % 60;
+
             // Add leading zeros if needed
             minutes = (minutes < 10 ? "0" : "") + minutes;
             seconds = (seconds < 10 ? "0" : "") + seconds;
+
             // Display the remaining time with seconds
-            document.getElementById("timer").innerHTML = minutes + ":" + seconds+  " seconds";
+            document.getElementById("timer").innerHTML = minutes + ":" + seconds + " seconds";
+
             // Check if the timer has reached 0:00, then redirect
             if (remainingTime === 0) {
-              <?php
+                clearInterval(timerInterval); // Stop the interval to prevent multiple redirects
+                <?php
                     // Send To callback URL Code START
                     $payin_request_id=base64_decode($_GET['order_id']);
                     include("../connection.php");
@@ -221,10 +227,12 @@
                     }
                     ?>
                 window.location.href = "<?php echo $callbackURL; ?>";
+               
             }
         }
+
         // Update the timer every second
-        setInterval(updateTimer, 1000);
+        var timerInterval = setInterval(updateTimer, 1000);
     </script>
 </body>
 </html>

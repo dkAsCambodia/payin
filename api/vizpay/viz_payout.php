@@ -45,11 +45,7 @@ if(!empty($_POST)){
 
         // $redirecturl='https://payin.implogix.com/api/payment-form2.php';
         // $callbackURL=$redirecturl.'?amount='.base64_encode($Amount).'&ref_bank_code='.base64_encode($customer_bank_name).'&ref_account_no='.base64_encode($customer_account_number).'&order_id='.base64_encode($payout_request_id).'&ref_name='.base64_encode($customer_name);
-        // ?>
-        // <script>
-        //     window.location.href = '<?php echo $callbackURL; ?>';
-        // </script>
-        // <?php
+       
 
     // Code for VIZPAY START
     Class Vizpay{
@@ -98,9 +94,9 @@ if(!empty($_POST)){
     }
     $config = [
         'api_key' => '07c784da-1ab7825e-d5742394-07a47b63',
-	    'secret_key' => 'ef2bc47d-31ecf9a6-97bb9144-228b38dc',
+        'secret_key' => 'ef2bc47d-31ecf9a6-97bb9144-228b38dc',
         'version' => 'v1',
-        'api_url' => 'https://prod.vizpay.io/'
+        'api_url' => 'https://apipoint.first2pay.io/'
     ];
     $vizpay = new Vizpay($config);
 
