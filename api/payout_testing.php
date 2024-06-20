@@ -13,7 +13,7 @@ function generateRandomString($length = 3)
 $apiUrl = 'https://payment.implogix.com/api/gpayout';
 
 $params = [
-    'merchant_code' => 'Merchant005',
+    'merchant_code' => $_GET['merchant_code'],
     'product_id' => '5',       
     'transaction_id' => "GTRN" . time() . generateRandomString(3),
     'callback_url' => 'https://payin.implogix.com/payout/payout_response_url.php',
