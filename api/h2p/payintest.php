@@ -1,4 +1,5 @@
 <?php
+
 function generateRandomString($length = 3)
 {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -14,7 +15,7 @@ $apiUrl = 'https://payment.implogix.com/api/payment';
 // $apiUrl = 'http://127.0.0.1:8000/api/payment';
 
 $params = [
-    'merchant_code' => 'MGMD',
+    'merchant_code' => 'gpower0001',
     'product_id' => '7',      //for h2p
     'transaction_id' => "GTRN" . time() . generateRandomString(3),
     'callback_url' => 'https://payin.implogix.com/payin_response_url.php',

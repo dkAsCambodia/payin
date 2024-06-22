@@ -7,7 +7,7 @@ if (!empty($_POST)) {
     $Customer = $_POST['customer_name'];
     $Currency = $_POST['currency'];
     $customer_bank_name = $_POST['customer_bank_name'];
-    $Amount = $_POST['amount'].'.00';
+    $Amount = $_POST['amount'];
     date_default_timezone_set('Asia/Kuala_Lumpur');
     $dated=date("Y-m-d H:i:s");
     $Datetime=date("YmdHis");
