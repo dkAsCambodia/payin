@@ -1,4 +1,17 @@
 <?php
+function isFloatValue($value) {
+    // Check if the value is numeric and has a decimal point
+    return is_numeric($value) && strpos($value, '.') !== false;
+}
+// The value you want to check
+$value =  $_GET['amount'];
+
+if (isFloatValue($value)) {
+     $_GET['amount']=$value;
+} else {
+    echo $value . " amount should be float value like (100.00)";
+    die;
+}
 
 function generateRandomString($length = 3)
 {
@@ -21,7 +34,7 @@ $params = [
     'callback_url' => 'https://payin.implogix.com/payin_response_url.php',
     // 'callback_url' => 'http://localhost/payin/payin_response_url.php',
     'currency' => 'THB',
-    'amount' => '300.00',  //need amount in float two digit
+    'amount' => $_GET['amount'],  //need amount in float two digit
     'customer_name' => 'Sirichai bangpa',
     'customer_email' => 'sirichai.ewallet@gmail.com',   
     'customer_phone' => '+855968509332',                

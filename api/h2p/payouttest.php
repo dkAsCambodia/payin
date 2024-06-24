@@ -10,6 +10,7 @@ if (isFloatValue($value)) {
      $_GET['amount']=$value;
 } else {
     echo $value . " amount should be float value like (100.00)";
+    die;
 }
 
 
