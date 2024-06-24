@@ -1,4 +1,18 @@
 <?php
+function isFloatValue($value) {
+    // Check if the value is numeric and has a decimal point
+    return is_numeric($value) && strpos($value, '.') !== false;
+}
+// The value you want to check
+$value =  $_GET['amount'];
+
+if (isFloatValue($value)) {
+     $_GET['amount']=$value;
+} else {
+    echo $value . " amount should be float value like (100.00)";
+}
+
+
 function generateRandomString($length = 3)
 {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -14,18 +28,18 @@ function generateRandomString($length = 3)
 $apiUrl = 'https://payment.implogix.com/api/gpayout';
 
 $params = [
-    'merchant_code' => 'MGMD',
+    'merchant_code' => 'gpower0001',
     'product_id' => '8',     
     'transaction_id' => "GTRN" . time() . generateRandomString(3),
     'callback_url' => 'https://payin.implogix.com/payout/payout_response_url.php',
     // 'callback_url' => 'http://localhost/payin/payout/payout_response_url.php',
     'currency' => 'THB',
-    'amount' => '100.00',     //need amount in float two digit
-    'customer_name' => 'Sirichai bangpa',
+    'amount' => $_GET['amount'],     //need amount in float two digit
+    'customer_name' => $_GET['account_name'],
     'customer_email' => 'sirichai.ewallet@gmail.com',   
     'customer_phone' => '+855968509332',                
-    'customer_bank_name' => 'BBL',              //bank Code       
-    'customer_account_number' => '1234567',                          
+    'customer_bank_name' => $_GET['bank_code'],              //bank Code       
+    'customer_account_number' => $_GET['account_number'],                          
     'customer_addressline_1' => 'Singapore',            
     'customer_zip' => '670592',                         
     'customer_country' => 'TH',                      
