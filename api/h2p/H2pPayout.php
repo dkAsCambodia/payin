@@ -53,6 +53,26 @@ if(!empty($_POST)){
 
         $protocol	= isset($_SERVER["HTTPS"])?'https://':'http://';
         $referer	= $protocol.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']; 
+
+         // Withdrawal verification URL code START
+                $verificationUrl = "https://payin.implogix.com/api/V3/payout/h2pay/verifytransaction.php?transId=" . $payout_request_id . "&key=" . $Key;
+ 
+                $curl = curl_init();
+                curl_setopt_array($curl, array(
+                  CURLOPT_URL => $verificationUrl,
+                  CURLOPT_RETURNTRANSFER => true,
+                  CURLOPT_ENCODING => '',
+                  CURLOPT_MAXREDIRS => 10,
+                  CURLOPT_TIMEOUT => 0,
+                  CURLOPT_FOLLOWLOCATION => true,
+                  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                  CURLOPT_CUSTOMREQUEST => 'POST',
+                ));
+                $response = curl_exec($curl);
+                curl_close($curl);
+                print_r($response);
+        // Withdrawal verification URL code END
+
         $curl_cookie="";
         $curl = curl_init(); 
         curl_setopt($curl, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
