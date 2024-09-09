@@ -74,7 +74,7 @@ if (!empty($_POST)) {
 
             $curl = curl_init();
             curl_setopt_array($curl, array(
-                CURLOPT_URL => 'https://agent-demo.99speedpay.com/api/services/RequestDeposit',
+                CURLOPT_URL => 'https://agent.99speedpay.com/api/services/RequestDeposit',
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => '',
                 CURLOPT_MAXREDIRS => 10,

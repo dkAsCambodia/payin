@@ -4,7 +4,7 @@ $payin_request_id=$_GET['RefId'];
 
 $curl = curl_init();
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'https://agent-demo.99speedpay.com/api/services/CheckDeposit',
+  CURLOPT_URL => 'https://agent.99speedpay.com/api/services/CheckDeposit',
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -15,7 +15,7 @@ curl_setopt_array($curl, array(
   CURLOPT_POSTFIELDS => "RefID=$payin_request_id",
   CURLOPT_HTTPHEADER => array(
     'API-AGENT-CODE: PGA001',
-    'API-KEY: H0pX4tg2IzboclO5Q7ah6oF8L7xft23o',
+    'API-KEY: o11SZxncRMu37KtJ1N4L1ApGcAZCSjiA',
     'API-AGENT-USER-NAME: zaffran',
     'Content-Type: application/x-www-form-urlencoded'
   ),
