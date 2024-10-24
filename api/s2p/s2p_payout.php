@@ -114,7 +114,7 @@ if(!empty($_POST)){
 
                 if(!empty($result2)){
                     // Code for update Transaction status START
-                    $Transactionid = $result2['info']['PayoutID'];
+                    $Transactionid = $result2['info']['PayoutID']; 
                     $orderstatus = $result2['info']['Status'];
                     $orderremarks = $result2['info']['TransactionDate'];
                    
