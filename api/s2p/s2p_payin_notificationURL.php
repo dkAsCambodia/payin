@@ -43,9 +43,15 @@ if(!empty($results)){
                 $redirecturl = $row['payin_success_url'];
                 }
 
+                if(!empty($row['orderid'])){
+                    $payment_transaction_id = $row['orderid'];
+                }else{
+                    $payment_transaction_id = $row['payin_request_id'];
+                }
+
             if (!empty($redirecturl)) {
                 $info = [
-                    'payment_transaction_id' => $row['orderid'],
+                    'payment_transaction_id' => $payment_transaction_id,
                     'orderstatus' => $orderstatus,
                     'payment_email' => $row['customer_email'],
                     'transaction_id' => $row['payin_request_id'],
