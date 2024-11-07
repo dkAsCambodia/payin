@@ -66,6 +66,11 @@ if(!empty($results)){
                         curl_close($ch);
                         echo "<pre>"; print_r($res);
                         // for Webhook Callback code END
+                        ?>
+                        <script>
+                            window.location.href = '<?php echo $callbackURL; ?>';
+                        </script>
+                        <?php
                        
                     }else{
                         echo "Callback URL not Found or Invalid Request!";

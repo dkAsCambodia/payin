@@ -1,37 +1,25 @@
 <?php
-// echo "This is speed pay Response created by DK";
-$payin_request_id=$_GET['RefId'];
+// echo "This is Xprizo Response created by DK";
+$response= $_GET;
+$res=json_encode($response, true);
+// echo "<pre>"; print_r($response); die;
+$payin_request_id=$response['reference'];
+$Transactionid=$response['key'];
 
-$curl = curl_init();
-curl_setopt_array($curl, array(
-  CURLOPT_URL => 'https://agent.99speedpay.com/api/services/CheckDeposit',
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => '',
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 0,
-  CURLOPT_FOLLOWLOCATION => true,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => 'POST',
-  CURLOPT_POSTFIELDS => "RefID=$payin_request_id",
-  CURLOPT_HTTPHEADER => array(
-    'API-AGENT-CODE: PGA001',
-    'API-KEY: o11SZxncRMu37KtJ1N4L1ApGcAZCSjiA',
-    'API-AGENT-USER-NAME: zaffran',
-    'Content-Type: application/x-www-form-urlencoded'
-  ),
-));
-$response = curl_exec($curl);
-curl_close($curl);
-$result= json_decode($response, true);
-// echo "<pre>"; print_r($result); die;
-$Transactionid = $result['info']['DepositID'];
-$orderstatus = $result['info']['Status'];
-$orderremarks = $result['info']['TransactionDate'];
+if($response['status']== 'Active'){
+     $orderstatus='success';
+}elseif($response['status']== 'Pending'){
+     $orderstatus='pending';
+}else{
+    $orderstatus='Failed';
+}
+date_default_timezone_set('Asia/Phnom_Penh');
+$orderremarks=date("Y-m-d h:i:sA");
 
  // Code for update Transaction status START
  if(!empty($Transactionid)){
     include("../../connection.php");
-    $query1 = "UPDATE `gtech_payins` SET `orderid`='$Transactionid', `orderremarks`='$orderremarks', `orderstatus`='$orderstatus', `status`='1', `payin_aar`='$response' WHERE payin_request_id='$payin_request_id' ";
+    $query1 = "UPDATE `gtech_payins` SET `orderid`='$Transactionid', `orderremarks`='$orderremarks', `orderstatus`='$orderstatus', `status`='1', `payin_aar`='$res' WHERE payin_request_id='$payin_request_id' ";
     mysqli_query($link,$query1);
 
         // Send To callback URL Code START
@@ -42,7 +30,7 @@ $orderremarks = $result['info']['TransactionDate'];
             $qrv = mysqli_query($link, $query2);
             $row = mysqli_fetch_assoc($qrv);
             if (!empty($row)) {
-            if ($orderstatus == 'Successful' || $orderstatus == 'Success' || $orderstatus == 'Approved') {
+            if ($orderstatus == 'Successful' || $orderstatus == 'Success' || $orderstatus == 'Approved' || $orderstatus == 'success') {
             $paymentStatus = 'success';
             $redirecturl = $row['payin_success_url'];
             } elseif (
@@ -52,7 +40,7 @@ $orderremarks = $result['info']['TransactionDate'];
             ) {
             $paymentStatus = 'failed';
             $redirecturl = $row['payin_notify_url'];
-            } elseif ($orderstatus == 'Pending') {
+            } elseif ($orderstatus == 'Pending' || $orderstatus == 'pending') {
             $paymentStatus = 'pending';
             $redirecturl = $row['payin_error_url'];
             } else {
