@@ -37,7 +37,7 @@ if(!empty($results)){
 
         mysqli_query($link,$query1);
         // Code for update Deposit Transaction status END
-        echo "Transaction updated Successfully!";
+        // echo "Transaction updated Successfully!";
 
         // Send To callback URL Code START
         $query2 = "SELECT price,customer_email,payin_request_id,payin_notify_url,
@@ -91,7 +91,7 @@ if(!empty($results)){
                     echo 'Curl error: ' . curl_error($ch);
                 }
                 curl_close($ch);
-                echo "<pre>"; print_r($res);
+                // echo "<pre>"; print_r($res);
                 // for Webhook Callback code END
 
                 // Set the response code to 200
