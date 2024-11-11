@@ -2,7 +2,7 @@
 // echo "This is Xprizo deposit webhook response created by DK";
 // {
 //     "statusType": 3,
-//     "status": "Rejected",
+//     "status": "Rejected",  // New /Accepted/Cancelled
 //     "description": "Reason for rejection",
 //     "actionedById": 1,
 //     "affectedContactIds": [],
@@ -25,7 +25,14 @@ if(!empty($results)){
     $payin_request_id=$results['transaction']['reference'];
     date_default_timezone_set('Asia/Phnom_Penh');
     $pt_timestamp=date("Y-m-d h:i:sA");
-    $orderstatus=$results['status'];
+    // $orderstatus=$results['status'];
+    if($results['status']== 'Accepted'){
+        $orderstatus='success';
+    }elseif($results['status']== 'New'){
+            $orderstatus='processing';
+    }else{
+        $orderstatus='Failed';
+    }
   
         // Code for update Deposit Transaction status START
         include("../../connection.php");
@@ -56,7 +63,7 @@ if(!empty($results)){
                     $paymentStatus = 'pending';
                     $redirecturl = $row['payin_error_url'];
                     } else {
-                    $paymentStatus = 'pending';
+                    $paymentStatus = 'processing';
                     $redirecturl = $row['payin_success_url'];
                     }
 
