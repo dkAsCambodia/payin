@@ -172,7 +172,7 @@ function generateRandomString($length = 3) {
                             <div class="row mb-4">
                                 <label for="customer_name" class="col-md-3 form-label">Card Holder Name</label>
                                 <div class="col-md-9">
-								<input class="form-control" required name="customer_name" id="customer_name" placeholder="Enter Card Holder Name" type="text" value="dk">
+								<input class="form-control" required name="customer_name" id="customer_name" placeholder="Enter Card Holder Name" type="text" value="dktesting xprizo">
                                 </div>
                             </div>
                             <div class="row mb-4 hidden cardFiled">
