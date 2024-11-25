@@ -34,7 +34,7 @@ if(!empty($_POST)){
 			$query2 = "INSERT INTO `gtech_payouts`( `client_ip`, `payout_api_token`, `vstore_id`, `action`, `source`, `source_url`, `price`, `curr`, `product_name`, 
             `customer_name`, `customer_email`, `customer_addressline_1`, `customer_city`, `customer_country`, `customer_zip`,
              `customer_phone`, `customer_bank_name`, `customer_bank_code`, `customer_account_number`, `payout_request_id`, `payout_membercode`, `payout_notify_url`, `payout_success_url`, `payout_error_url`, `orderstatus`, `created_at`)
-             VALUES ( '$client_ip', '$payout_api_token', '$vstore_id', 'payout', 'payout-Encode', 'h2p_payout', '$Amount', '$Currency', '$product_name', '$customer_name', '$customer_email', '$customer_addressline_1', '$customer_city', '$customer_country', '$customer_zip',
+             VALUES ( '$client_ip', '$payout_api_token', '$vstore_id', 'payout', 'payout-Encode', 's2p_payout', '$Amount', '$Currency', '$product_name', '$customer_name', '$customer_email', '$customer_addressline_1', '$customer_city', '$customer_country', '$customer_zip',
                '$customer_phone', '$customer_bank_name', '$customer_bank_code', '$customer_account_number', '$payout_request_id', '$payout_membercode', '$payout_notify_url', '$payout_success_url', '$payout_error_url', 'Pending', '$created_date')";
 			$result = mysqli_query($link, $query2);
 			if (!empty($result)) {
@@ -121,9 +121,13 @@ if(!empty($_POST)){
                     $query = "UPDATE `gtech_payouts` SET  `orderid`='$Transactionid', `orderremarks`='$orderremarks', `orderstatus`='$orderstatus', `status`='1', `payout_aar`='$response' WHERE payout_request_id='$payout_request_id' ";
                     $res=mysqli_query($link,$query);
                     // Code for update Transaction status END
-    
-                    // Send To callback URL Code START
-                    $query3 = "SELECT price,customer_email,payout_request_id,payout_notify_url,payout_success_url,payout_error_url,orderid,created_at,orderstatus FROM `gtech_payouts` WHERE payout_request_id='$payout_request_id' ";
+                }
+
+            }else{
+                // echo "<pre>"; print_r($result);
+            }
+             // Send To callback URL Code START
+            $query3 = "SELECT price,customer_email,payout_request_id,payout_notify_url,payout_success_url,payout_error_url,orderid,created_at,orderstatus FROM `gtech_payouts` WHERE payout_request_id='$payout_request_id' ";
                     $qrv3=mysqli_query($link,$query3);
                     $row=mysqli_fetch_assoc($qrv3);
                     if(!empty($row)){
@@ -143,30 +147,26 @@ if(!empty($_POST)){
     
                             if (!empty($redirecturl)) {
                                     $info = [
-                                            'settlement_trans_id' => $row['orderid'],
+                                            'settlement_trans_id' => $row['orderid'] ?? $row['payout_request_id'],
                                             'orderstatus' => $row['orderstatus'],
                                             'payment_email' => $row['customer_email'],
                                             'transaction_id' => $row['payout_request_id'],
                                             'payment_amount' => $row['price'],
                                             'payment_timestamp' => $row['created_at'],
                                             'payment_status' => $paymentStatus,
-                                            'orderremarks' => $orderremarks,
+                                            'orderremarks' => $orderremarks ?? $row['created_at'],
                                     ];
                                     $queryString = http_build_query($info, '', '&');
                                     $callbackURL = $redirecturl . '?' . $queryString;
                             }else{
                                     echo "Callback URL not Found or Invalid Request!";
                             }
-                    } ?>
+                    } 
+                    ?>
                     <script>
                     window.location.href = '<?php echo $callbackURL; ?>';
                     </script>
                 <?php
-                }
-
-            }else{
-                echo "<pre>"; print_r($result);
-            }
         // Code for speed pay payout API END
        
 }else{
