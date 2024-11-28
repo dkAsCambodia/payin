@@ -4,6 +4,9 @@ if (!empty($_POST)) {
     $client_ip = (isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR']);
     $payin_request_id = $_POST['transaction_id']; // Should be unique from Merchant Reference
     $Customer = $_POST['customer_name'];
+    if(empty($Customer)){
+        return "Customer Name not found!";
+    }
     $Currency = $_POST['currency'];
     $customer_bank_name = $_POST['customer_bank_name'];
     $Amount = $_POST['amount'];
