@@ -9,6 +9,9 @@ if(!empty($_POST)){
         $vstore_id	=$_POST['merchant_code']; // For Gtechz Official
         $product_name= 'testing dk';// Any Thing
         $customer_name=$_POST['customer_name']; // Customer Name
+        if(empty($customer_name)){
+            return "Customer Name not found!";
+        }
         $customer_email=$_POST['customer_email'];
         $customer_addressline_1=$_POST['customer_addressline_1']; // Customer Address Line 1
         $customer_city=$_POST['customer_city']; // Customer City
