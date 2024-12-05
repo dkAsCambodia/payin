@@ -12,7 +12,7 @@ if(!empty($results)){
         
         // Code for update Deposit Transaction status START
          include("../../connection.php");
-        $query = "UPDATE `gtech_payouts` SET  `orderremarks`='$pt_timestamp', `orderstatus`='$orderstatus', `status`='1', `payout_aar`='$response2' WHERE payout_request_id='$payout_request_id' ";
+        $query = "UPDATE `gtech_payouts` SET  `orderremarks`='$pt_timestamp', `orderstatus`='$orderstatus', `status`='1', `payout_all`='$response2' WHERE payout_request_id='$payout_request_id' ";
         $res=mysqli_query($link,$query);
         echo "Transaction updated Successfully!";
         // Code for update Transaction status END
