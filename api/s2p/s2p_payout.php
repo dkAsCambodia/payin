@@ -118,10 +118,10 @@ if(!empty($_POST)){
                 if(!empty($result2)){
                     // Code for update Transaction status START
                     $Transactionid = $result2['info']['PayoutID']; 
-                    $orderstatus = $result2['info']['Status'];
                     $orderremarks = $result2['info']['TransactionDate'];
+                    $orderstatus = $result2['info']['Status'] ?? 'processing';
                    
-                    $query = "UPDATE `gtech_payouts` SET  `orderid`='$Transactionid', `orderremarks`='$orderremarks', `orderstatus`='$orderstatus', `status`='1', `payout_aar`='$response' WHERE payout_request_id='$payout_request_id' ";
+                    $query = "UPDATE `gtech_payouts` SET  `orderid`='$Transactionid', `orderremarks`='$orderremarks', `orderstatus`='$orderstatus', `status`='1', `payout_aar`='$response', `payout_all`='$response2' WHERE payout_request_id='$payout_request_id' ";
                     $res=mysqli_query($link,$query);
                     // Code for update Transaction status END
                 }
