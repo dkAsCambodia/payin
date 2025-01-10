@@ -1,53 +1,45 @@
 <?php
+if(empty($_GET)){
+    return "invalid request";
+}
+$amount=base64_decode($_GET['aa']);
+$invoice_number=base64_decode($_GET['in']);
 session_start();
 ob_start();
-include("../connection.php");
-$selrev = "SELECT * FROM `gtech_currencies`";
-$qrv=mysqli_query($link,$selrev);
 $referenceNo="GZTRN".time().generateRandomString(3);
 if(array_key_exists('paynow',$_POST)){
-	checkout();
+	checkout($amount,$invoice_number);
 }
-function checkout(){
-    if($_POST['currency_namez']=="USD(Cambodia)"){
-	    $currency = "USD";
-	}else{
-	    $currency = $_POST['currency_namez'];
-	}
+function checkout($amount,$invoice_number){
     
-    if($_POST['source_type']=='source2'){   // SpeedPay
-        
-            $apiUrl = 'https://payment.implogix.com/api/payment';
-            // $apiUrl = 'http://127.0.0.1:8000/api/payment';
-            $params = [
-                'merchant_code' => 'FCmerchant001',
-                'product_id' => '24',                          // for FC department
-                'transaction_id' => $_POST['payin_request_id'],
-                'callback_url' => 'https://payin.implogix.com/payin_response_url.php',
-                'currency' => $currency,
-                'amount' => $_POST['amount'],  
-                'customer_email' => 'customer@gmail.com',   
-                'customer_phone' => $_POST['invoice_number'] ?? '069861405',
-                'customer_name' => $_POST['customer_name'],    // account holder name 
-                'customer_bank_name' => $_POST['bank_type'],                  // BankCode
-                'customer_account_number' => $_POST['customer_account_number'],      // bank account number    
-                'customer_addressline_1' => 'Singapore',            
-                'customer_zip' => '670592',                         
-                'customer_country' => 'TH',                      
-                'customer_city' => 'Singapore',   
-            ];
-            $queryString = http_build_query($params, '', '&');
-            $callPaymentUrl = $apiUrl . '?' . $queryString;
-            ?>
-            <script>
-                window.location.href = '<?php echo $callPaymentUrl; ?>';
-            </script>
-            <?php
-           
-	}else{
-		echo "Source not found!";
-	}
-	
+   // SpeedPay
+        $apiUrl = 'https://payment.implogix.com/api/payment';
+        // $apiUrl = 'http://127.0.0.1:8000/api/payment';
+        $params = [
+            'merchant_code' => 'Merchant005',
+            'product_id' => '23',
+            'transaction_id' => $_POST['payin_request_id'],
+            'callback_url' => 'https://payin.implogix.com/payin_response_url.php',
+            'currency' => 'THB',
+            'amount' => $amount,  
+            'customer_email' => 'sirichai.ewallet@gmail.com',   
+            'customer_phone' => $invoice_number,
+            'customer_name' => $_POST['customer_name'],    // account holder name 
+            'customer_bank_name' => $_POST['bank_type'],                  // BankCode
+            'customer_account_number' => $_POST['customer_account_number'],      // bank account number    
+            'customer_addressline_1' => 'Singapore',            
+            'customer_zip' => '670592',                         
+            'customer_country' => 'TH',                      
+            'customer_city' => 'Singapore',   
+        ];
+        $queryString = http_build_query($params, '', '&');
+        $callPaymentUrl = $apiUrl . '?' . $queryString;
+        ?>
+        <script>
+            window.location.href = '<?php echo $callPaymentUrl; ?>';
+        </script>
+        <?php
+  
 }
 
 function generateRandomString($length = 3) {
@@ -115,32 +107,10 @@ function generateRandomString($length = 3) {
 								<input class="form-control" name="payin_request_id" id="payin_request_id" placeholder="Enter Reference ID" value="<?php echo $referenceNo; ?>" required readonly type="text">
                                 </div>
                             </div>
-                            <div class="row mb-4" style="display:none">
-                                <label for="Source" class="col-md-3 form-label">Source</label>
+                            <div class="row mb-4 hidden cardFiled">
+                                <label for="invoice_number" class="col-md-3 form-label">Invoice Number</label>
                                 <div class="col-md-9">
-									<input type="hidden" name="source_typez" id="source_typez"/>
-										<select class="form-control select2-show-search form-select  text-dark" id="source_type" name="source_type" required data-placeholder="---" tabindex="-1" aria-hidden="true">
-											<option value="">---</option>
-											<option value="source2" selected>source2</option>
-										</select>
-                                </div>
-                            </div>
-                            <div class="row mb-4">
-                                <label for="price" class="col-md-3 form-label">Amount (minimum 300)</label>
-                                <div class="col-md-9">
-									<input class="form-control" required name="amount" id="price" placeholder="Enter your Amount" value="400.00" type="text">
-                                </div>
-                            </div>
-                            <div class="row mb-4">
-                                <label for="Currency" class="col-md-3 form-label">Currency</label>
-                                <div class="col-md-9">
-										<input type="hidden" name="currency_namez" id="currency_namez"/>
-										<select class="form-control select2-show-search form-select  text-dark" id="currency" name="currency" required data-placeholder="---" tabindex="-1" aria-hidden="true">
-											<option value="">---</option>
-											<?php while($rowrv=mysqli_fetch_array($qrv)){ ?>
-											<option value="<?php echo $rowrv['id']?>"><?php echo $rowrv['currency_name']?></option>
-											<?php } ?>
-										</select>
+                                    <input type="text" class="form-control" name="invoice_number" id="invoice_number" value="<?php echo $invoice_number ?>" maxlength='16' readonly>
                                 </div>
                             </div>
                             <div class="row mb-4">
@@ -152,8 +122,22 @@ function generateRandomString($length = 3) {
                             <div class="row mb-4">
                                 <label for="Bank-Code" class="col-md-3 form-label">Bank Code</label>
                                 <div class="col-md-9">
-										<select class="form-control select2-show-search form-select  text-dark" id="bank_type" name="bank_type" required data-placeholder="---">
-											<option value="">---</option>
+										<select class="form-control select2-show-search form-select  text-dark" name="bank_type" required data-placeholder="---">
+                                            <option value="">Select Bank</option>
+                                            <option value="BBL">Bangkok Bank</option>
+                                            <option value="BOT">Bank of Thailand</option>
+                                            <option value="BOA">Bank of AYUDHYA</option>
+                                            <option value="KTB">Krung Thai Bank</option>
+                                            <option value="SCB">Siam Commercial Bank</option>
+                                            <option value="KKR">Kasikorn Bank</option>
+                                            <option value="BOCT">Bank of CHINA</option>
+                                            <option value="CITIT">CITIBANK, N.A</option>
+                                            <option value="GSB">Government Savings Bank</option>
+                                            <option value="SCBT">Standard Chartered Bank</option>
+                                            <option value="KNK">KIATNAKIN PHATRA Bank</option>
+                                            <option value="IBT">ISLAMIC Bank of THAILAND</option>
+                                            <option value="GHB">THE GOVERNMENT HOUSING Bank</option>
+                                            <option value="TMB">Thai Military Bank (TMB THANACHART Bank)</option>
 										</select>
                                 </div>
                             </div>
@@ -163,14 +147,8 @@ function generateRandomString($length = 3) {
 									<input class="form-control" required name="customer_account_number" id="customer_account_number" placeholder="Enter Bank Account Number" type="text">
 								</div>
 							</div>
-                            <div class="row mb-4 hidden cardFiled">
-                                <label for="invoice_number" class="col-md-3 form-label">Invoice Number</label>
-                                <div class="col-md-9">
-                                    <input type="text" class="form-control" name="invoice_number" id="invoice_number" placeholder="Enter Invoice number" maxlength='16' >
-                                </div>
-                            </div>
                             <div class="text-center">
-                                <button type="submit" name="paynow" id="paynow" class="btn btn-primary btn-block">Pay Now</button>
+                                <button type="submit" name="paynow" id="paynow" class="btn btn-primary btn-block">Pay Now <?php echo $amount ?>฿</button>
                             </div>
                         </form>
                        
@@ -187,34 +165,5 @@ function generateRandomString($length = 3) {
     <script src="../assets/vendor/global/global.min.js"></script>
     <script src="../assets/js/custom.min.js"></script>
     <script src="../assets/js/dlabnav-init.js"></script>
-	<script>
-	$(document).ready(function(){
-    $('#currency').on('change', function(){
-        var iso2 = $(this).val();
-        var iso3 = $('#source_type').val();
-        var currencyname=$("#currency option:selected");
-        var sourcetype=$("#source_type option:selected");
-        //$('#currency_namez').val(currencyname);
-        $('#currency_namez').val(currencyname.text());
-        $('#source_typez').val(sourcetype.text());
-        // alert(iso2);
-        if(iso2 && iso3){
-            $.ajax({
-                type:'POST',
-                url:'../getBankData.php',
-                /*data:{'iso2_val='+iso2},*/
-                data: {iso2_val:iso2, iso3_val:iso3},
-                success:function(html){
-                    //alert(html);
-                    $('#bank_type').html(html);
-                }
-            }); 
-        }else{
-            $('#bank_type').html('<option value="">---</option>'); 
-        }
-    });
-});
-</script>
     </body>
 </html>
-
