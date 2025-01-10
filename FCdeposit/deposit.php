@@ -125,18 +125,13 @@ function generateRandomString($length = 3) {
 										<select class="form-control select2-show-search form-select  text-dark" name="bank_type" required data-placeholder="---">
                                             <option value="">Select Bank</option>
                                             <option value="BBL">Bangkok Bank</option>
-                                            <option value="BOT">Bank of Thailand</option>
                                             <option value="BOA">Bank of AYUDHYA</option>
                                             <option value="KTB">Krung Thai Bank</option>
                                             <option value="SCB">Siam Commercial Bank</option>
                                             <option value="KKR">Kasikorn Bank</option>
-                                            <option value="BOCT">Bank of CHINA</option>
-                                            <option value="CITIT">CITIBANK, N.A</option>
                                             <option value="GSB">Government Savings Bank</option>
                                             <option value="SCBT">Standard Chartered Bank</option>
                                             <option value="KNK">KIATNAKIN PHATRA Bank</option>
-                                            <option value="IBT">ISLAMIC Bank of THAILAND</option>
-                                            <option value="GHB">THE GOVERNMENT HOUSING Bank</option>
                                             <option value="TMB">Thai Military Bank (TMB THANACHART Bank)</option>
 										</select>
                                 </div>
