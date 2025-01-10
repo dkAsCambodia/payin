@@ -16,8 +16,8 @@ function checkout($amount,$invoice_number){
         $apiUrl = 'https://payment.implogix.com/api/payment';
         // $apiUrl = 'http://127.0.0.1:8000/api/payment';
         $params = [
-            'merchant_code' => 'Merchant005',
-            'product_id' => '23',
+            'merchant_code' => 'FCmerchant001',
+            'product_id' => '24',    
             'transaction_id' => $_POST['payin_request_id'],
             'callback_url' => 'https://payin.implogix.com/payin_response_url.php',
             'currency' => 'THB',
