@@ -104,7 +104,7 @@ function generateRandomString($length = 3) {
 							<div class="row mb-4">
                                 <label for="Reference" class="col-md-3 form-label">Reference ID</label>
                                 <div class="col-md-9">
-								<input class="form-control" name="payin_request_id" id="payin_request_id" placeholder="Enter Reference ID" value="<?php echo $referenceNo; ?>" required readonly type="text">
+								<input class="form-control" name="payin_request_id" id="payin_request_id" placeholder="Enter Reference ID" value="<?php echo $invoice_number; ?>" required readonly type="text">
                                 </div>
                             </div>
                             <div class="row mb-4 hidden cardFiled">
