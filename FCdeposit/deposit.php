@@ -114,7 +114,11 @@ function checkout($amount,$invoice_number){
                             <div class="row mb-4">
                                 <label for="customer_name" class="col-md-4 form-label">Bank Account Name</label>
                                 <div class="col-md-8">
-								<input class="form-control" required name="customer_name" id="customer_name" placeholder="Enter Bank account name" type="text">
+                                <input list="browsers" id="browser" class="form-control" required name="customer_name" id="customer_name" placeholder="Enter Bank account name" type="text">
+                                    <datalist id="browsers">
+                                        <option value="<?php echo base64_decode($_GET['cu']) ?>">
+                                    </datalist>
+                                </div>
                                 </div>
                             </div>
                             <div class="row mb-4">
