@@ -6,7 +6,6 @@ $amount=base64_decode($_GET['aa']);
 $invoice_number=base64_decode($_GET['in']);
 session_start();
 ob_start();
-// $referenceNo="GZTRN".time().generateRandomString(3);
 if(array_key_exists('paynow',$_POST)){
 	checkout($amount,$invoice_number);
 }
@@ -40,15 +39,7 @@ function checkout($amount,$invoice_number){
         </script>
         <?php
   
-}
-
-// function generateRandomString($length = 3) {
-//       $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-//       $charactersLength = strlen($characters);
-//       $randomString = '';
-//       for ($i = 0; $i < $length; $i++) {$randomString .= $characters[rand(0, $charactersLength - 1)];}
-//       return $randomString;
-//    }	
+}	
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -66,7 +57,7 @@ function checkout($amount,$invoice_number){
     <meta property="og:description" content="Payment Gateway">
     <meta property="og:image" content="assets/images/logo.png">
     <meta name="format-detection" content="telephone=no">
-    <title>Gtechz PSP – Payment Service Provider</title>
+    <title>Grand Diamond Poipet Resort</title>
     <link rel="shortcut icon" type="image/png" href="../assets/images/favicon.png">
     <link href="../assets/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/toastr.min.css">
@@ -82,6 +73,7 @@ function checkout($amount,$invoice_number){
             }
             .form-control {
                 height: 2.5rem !important;
+                border: 2px solid gray;
             }
             .justify-content-center {
                 margin-top: 120px;
@@ -99,23 +91,35 @@ function checkout($amount,$invoice_number){
             <div class="row no-gutters">
                 <div class="col-xl-12">
                     <div class="auth-form">
-                        <h3 class="text-center mb-4"><b>Grand Diamond FC Department</b></h3>
+                        <h3 class="text-center mb-4"><b>Grand Diamond Poipet Resort</b></h3>
                         <form class="form-horizontal" enctype="multipart-formdata" method="post" action="#">
 							<div class="row mb-4" style="display:none;">
-                                <label for="Reference" class="col-md-3 form-label">Reference ID</label>
-                                <div class="col-md-9">
+                                <label for="Reference" class="col-md-4 form-label">Reference ID</label>
+                                <div class="col-md-8">
 								<input class="form-control" name="payin_request_id" id="payin_request_id" placeholder="Enter Reference ID" value="<?php echo $invoice_number; ?>" required readonly type="text">
                                 </div>
                             </div>
-                            <div class="row mb-4">
-                                <label for="customer_name" class="col-md-3 form-label">Account Holder Name</label>
-                                <div class="col-md-9">
-								<input class="form-control" required name="customer_name" id="customer_name" placeholder="Enter Account Holder Name" type="text">
+                            <div class="row mb-4 hidden cardFiled">
+                                <label for="invoice_number" class="col-md-4 form-label">Customer Number</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" value="<?php echo base64_decode($_GET['cu']) ?>" readonly>
+                                </div>
+                            </div>
+                            <div class="row mb-4 hidden cardFiled">
+                                <label for="invoice_number" class="col-md-4 form-label">Invoice Number</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" name="invoice_number" id="invoice_number" value="<?php echo $invoice_number ?>" maxlength='16' readonly>
                                 </div>
                             </div>
                             <div class="row mb-4">
-                                <label for="Bank-Code" class="col-md-3 form-label">Bank Code</label>
-                                <div class="col-md-9">
+                                <label for="customer_name" class="col-md-4 form-label">Bank Account Name</label>
+                                <div class="col-md-8">
+								<input class="form-control" required name="customer_name" id="customer_name" placeholder="Enter Bank account name" type="text">
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <label for="Bank-Code" class="col-md-4 form-label">Bank Code</label>
+                                <div class="col-md-8">
 										<select class="form-control select2-show-search form-select  text-dark" name="bank_type" required data-placeholder="---">
                                             <option value="">Select Bank</option>
                                             <option value="BBL">Bangkok Bank</option>
@@ -131,17 +135,11 @@ function checkout($amount,$invoice_number){
                                 </div>
                             </div>
                             <div class="row mb-4">
-								<label for="customer_account_number" class="col-md-3 form-label">Bank Account Number</label>
-								<div class="col-md-9">
+								<label for="customer_account_number" class="col-md-4 form-label">Bank Account Number</label>
+								<div class="col-md-8">
 									<input class="form-control" required name="customer_account_number" id="customer_account_number" placeholder="Enter Bank Account Number" type="text">
 								</div>
 							</div>
-                            <div class="row mb-4 hidden cardFiled">
-                                <label for="invoice_number" class="col-md-3 form-label">Invoice Number</label>
-                                <div class="col-md-9">
-                                    <input type="text" class="form-control" name="invoice_number" id="invoice_number" value="<?php echo $invoice_number ?>" maxlength='16' readonly>
-                                </div>
-                            </div>
                             <div class="text-center">
                                 <button type="submit" name="paynow" id="paynow" class="btn btn-primary btn-block">Pay Now <?php echo $amount ?>฿</button>
                             </div>
@@ -162,3 +160,4 @@ function checkout($amount,$invoice_number){
     <script src="../assets/js/dlabnav-init.js"></script>
     </body>
 </html>
+
