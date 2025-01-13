@@ -119,7 +119,6 @@ function checkout($amount,$invoice_number){
                                         <option value="<?php echo base64_decode($_GET['cu']) ?>">
                                     </datalist>
                                 </div>
-                                </div>
                             </div>
                             <div class="row mb-4">
                                 <label for="Bank-Code" class="col-md-4 form-label">Bank Code</label>
