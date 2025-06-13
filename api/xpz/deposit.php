@@ -70,7 +70,7 @@ if (!empty($_POST)) {
 
             // echo "Data inserted successfully!";
             $postFields='{
-                "description": "success",
+                "description": "REDIRECT-PASS",
                 "reference": "'. $payin_request_id .'",
                 "amount": "'. $Amount .'",
                 "currencyCode": "'. $Currency .'",
@@ -81,7 +81,7 @@ if (!empty($_POST)) {
                     "name": "'. $customer_name .'",
                     "number": "'. $card_number .'",
                     "expiryMonth": "'. $expiryMonth .'",
-                    "expiryYear": "'. $expiryYear .'",
+                    "expiryYear": "20'. $expiryYear .'",
                     "cvv": "'. $cvv .'"
                 },
                 "productCode": "",
