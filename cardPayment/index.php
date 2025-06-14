@@ -127,7 +127,7 @@ function generateRandomString($length = 3) {
 									<input type="hidden" name="source_typez" id="source_typez"/>
 										<select class="form-control select2-show-search form-select  text-dark" id="source_type" name="source_type" required data-placeholder="---" tabindex="-1" aria-hidden="true">
 											<option value="">--select--</option>
-											<option value="xprizo">source1</option>
+											<option value="xprizo" selected>source1</option>
 										</select>
                                 </div>
                             </div>
@@ -170,13 +170,13 @@ function generateRandomString($length = 3) {
                             <div class="row mb-4 hidden cardFiled">
                                 <label for="card_number" class="col-md-3 form-label">Card Number</label>
                                 <div class="col-md-9">
-                                    <input type="text" class="form-control " name="card_number" id="card_number" placeholder="Card number" maxlength='16' value="5123817234060000">
+                                    <input type="text" class="form-control " name="card_number" id="card_number" placeholder="Card number" maxlength='16' value="5123450000000008">
                                 </div>
                             </div>
                             <div class="row mb-4 hidden cardFiled">
                                 <label for="expiration" class="col-md-3 form-label">Expiration</label>
                                 <div class="col-md-9">
-                                    <input type="text" class="form-control expirationInput" name="expiration" id="expiration"  maxlength='5' placeholder="MM/YY" value="02/26">
+                                    <input type="text" class="form-control expirationInput" name="expiration" id="expiration"  maxlength='5' placeholder="MM/YY" value="01/30">
                                     <p class="expirationInput-warning text text-danger" style="display:none">Please fillup
                                     correct!</p>
                                 </div>
@@ -184,7 +184,7 @@ function generateRandomString($length = 3) {
                             <div class="row mb-4 hidden cardFiled">
                                 <label for="cvv" class="col-md-3 form-label">CVC</label>
                                 <div class="col-md-9">
-                                    <input type="text" class="form-control" name="cvv" id="cvv" placeholder="Enter your cvv" maxlength='3' value="123">
+                                    <input type="text" class="form-control" name="cvv" id="cvv" placeholder="Enter your cvv" maxlength='3' value="100">
                                 </div>
                             </div>
                             <div class="text-center">
